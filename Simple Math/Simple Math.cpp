@@ -8,6 +8,7 @@
 #include <string>
 #include <algorithm>
 #include <iomanip>
+#include <utility>
 
 const double clothingAndGardenTax = 0.06, beautyTax = 0.07, groceryAndSchoolTax = 0.03, tobaccoTax = 0.1;
 
@@ -37,8 +38,9 @@ int main()
 {
 	// Declare variables
 	std::string category;
-	std::vector<double> cost;
+	std::vector<std::pair<double, std::string>> cost;
 	double finalCost = 0;
+	size_t dividerLength = 0;
 
 	// Set decimal limits and give instructions for finishing input
 	std::cout << std::fixed << std::showpoint << std::setprecision(2);
@@ -59,13 +61,18 @@ int main()
 		std::cout << std::endl;
 
 		taxPrice = computeTax(price, category);
-		cost.push_back(taxPrice);
+		cost.emplace_back(taxPrice, category);
 	} while (category != "finish");
 
-	for (double d : cost) { // Adds up total cost
-		finalCost += d;
+	for (std::pair<double, std::string> p : cost) { // Adds up total cost
+		finalCost += p.first;
+		if (p.second.length() + 13 > dividerLength) dividerLength = p.second.length() + 13;
+		std::cout << "$" << p.first << " - " << p.second << " item" << std::endl;
 	}
-	std::cout << "Final Cost: $" << finalCost << std::endl;
+
+	for (size_t i = 0; i < dividerLength+1; i++) printf("-"); printf("\n");
+
+	std::cout << "$" << finalCost << " - " << "Total cost\n" << std::endl;
 
 	// Wait for user input before closing
 	std::cout << "Press any key to close the program.";
