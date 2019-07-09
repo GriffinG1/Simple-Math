@@ -43,8 +43,8 @@ int main()
 	// Declare variables
 	std::string category;
 	std::vector<std::pair<double, std::string>> cost;
-	double finalCost = 0;
-	size_t dividerLength = 1;
+	double finalCost = 0; 
+	size_t dividerLength = 19; // minimum possible divider length
 
 	// Set decimal limits and give instructions for finishing input
 	std::cout << std::fixed << std::showpoint << std::setprecision(2);
@@ -77,13 +77,13 @@ int main()
 
 	for (std::pair<double, std::string> p : cost) { // Adds up total cost
 		finalCost += p.first;
-		if (p.second.length() + 13 > dividerLength) dividerLength = p.second.length() + 13; // updates divider length to max
+		if (p.second.length() + 14 > dividerLength) dividerLength = p.second.length() + 14; // updates divider length to max
 		std::cout << "$" << p.first << " - " << p.second << " item" << std::endl; // outputs each taxed price with category
 	}
 
 	for (size_t i = 0; i < dividerLength; i++) printf("-"); printf("\n"); // outputs divider
 
-	std::cout << "$" << finalCost << " - " << "total cost\n" << std::endl; // outputs final cost
+	std::cout << "$" << finalCost << " - total cost\n" << std::endl; // outputs final cost
 
 	// Wait for user input before closing
 	std::cout << "Press any key to close the program.";
