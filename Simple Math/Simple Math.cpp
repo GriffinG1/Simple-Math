@@ -34,7 +34,7 @@ double computeTax(double d, const std::string& str) {
 		case 4:
 			return d + d * tobaccoTax;
 		default:
-			return d;
+			return d; // Can't compute tax if no valid category, so just returns price
 	}
 }
 
